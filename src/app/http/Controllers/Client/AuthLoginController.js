@@ -27,7 +27,7 @@ class AuthLoginController {
 			return ResponseHelper.success( res, { 
 				status: "login done",
 				email: getSession.email,
-				username: getUser.username,
+				clientname: getUser.clientname,
 				session_id: getSession.session_id,
 				created_at: getSession.created_at
 			});

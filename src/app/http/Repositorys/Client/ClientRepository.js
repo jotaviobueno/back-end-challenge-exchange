@@ -22,7 +22,7 @@ export default class Repository {
 
 		try {
 			return await ClientModel.create({
-				username: this._clientname,
+				clientname: this._clientname,
 				email: this._email,
 				password: await bcrypt.hash(this._password, 10),
 				cpf: this._cpf,
