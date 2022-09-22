@@ -1,0 +1,36 @@
+{
+  "name": "back-end-challenge-exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jotaviobueno/back-end-challenge-exchange.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jotaviobueno/back-end-challenge-exchange/issues"
+  },
+  "homepage": "https://github.com/jotaviobueno/back-end-challenge-exchange#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1221.0",
+    "bcrypt": "^5.0.1",
+    "chalk": "^5.0.1",
+    "color": "^4.2.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "eslint": "^8.23.1",
+    "express": "^4.18.1",
+    "ip": "^2.0.0",
+    "mongoose": "^6.6.1",
+    "nanoid": "^4.0.0",
+    "nodemon": "^2.0.20",
+    "yup": "^0.32.11"
+  }
+}
