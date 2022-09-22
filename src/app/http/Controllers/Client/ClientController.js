@@ -9,7 +9,7 @@ import ResponseHelper from "../../../Helper/ResponseHelper.js";
 
 class ClientController {
 
-	async Storage(req, res) {
+	async SignUp(req, res) {
 		const { clientname, email, cpf, password } = req.body;
 
 		if ( await ClientHelper.ExistEmail(email) )
@@ -21,7 +21,7 @@ class ClientController {
 		const getUser = await new Repository(clientname, email, cpf, password).Storage();
 
 		if ( getUser)
-			return ResponseHelper.success( res, { 
+			return ResponseHelper.created( res, { 
 				status: "created",
 				email: getUser.email,
 				username: getUser.username,
