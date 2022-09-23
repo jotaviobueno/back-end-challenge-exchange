@@ -7,9 +7,11 @@ import {nanoid} from "nanoid";
 export default class Repository {
 // Private
 	_email;
+	_session_id;
 
-	constructor(email) {
+	constructor(email, session_id) {
 		this._email = email;
+		this._session_id = session_id;
 	}
 
 	async CreateSession() {
@@ -26,6 +28,10 @@ export default class Repository {
 		} catch(e) {
 			return false;
 		}
+	}
+
+	async Logout() {
+		return await LoginModel.updateOne({ session_id: this._session_id, disconnected_in: null }, { disconnected_in: new Date() });
 	}
     
 }
