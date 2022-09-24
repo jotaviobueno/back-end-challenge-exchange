@@ -19,7 +19,7 @@ class AuthLoginHelper {
 
 	async ExistSession(session_id) {
 		const findSession = await LoginModel.findOne({ session_id: session_id, disconnected_in: null });
-	
+
 		if (! findSession )
 			return false;
         

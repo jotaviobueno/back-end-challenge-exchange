@@ -48,9 +48,9 @@ class AuthLoginController {
 		if (! getUser)
 			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
 
-		const a = await new Repository(getUser.email, getSession.session_id).Logout();
+		const updateSession = await new Repository(getUser.email, getSession.session_id).Logout();
 
-		if ( a.modifiedCount === 1 )
+		if ( updateSession.modifiedCount === 1 )
 			return ResponseHelper.success( res, { success: "disconnected" } );
 
 		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
