@@ -46,7 +46,7 @@ class ClientController {
 			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
 
 		if ( getSession )
-			return ResponseHelper.unprocessableEntity( res, {
+			return ResponseHelper.success( res, {
 				clientname: getUser.clientname,
 				email: getUser.email,
 				cpf: getUser.cpf,
