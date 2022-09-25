@@ -1,5 +1,6 @@
 // Model
-import EmailChangeTokensModel from "../../Model/Client/EmailChangeTokensModel.js";
+import EmailChangeTokensModel from "../../Model/Client/Tokens/EmailChangeTokensModel.js";
+import PasswordChangeTokensModel from "../../Model/Client/Tokens/PasswordChangeTokensModel.js";
 
 class AuthTokenHelper {
 
@@ -21,6 +22,27 @@ class AuthTokenHelper {
             
 			if ( new Date() >= tokens.expires_at )
 				await EmailChangeTokensModel.updateOne({ token: tokens.token }, { status: "discarded" });
+		});
+	}
+
+	async ValidateAmountOfTokens(email) {
+		const findTokens = await PasswordChangeTokensModel.find({ email: email });
+
+		if ( findTokens.length >= 1 )
+			findTokens.forEach( async (tokens) => {
+				
+				if ( tokens.status != "used" )
+					await PasswordChangeTokensModel.updateOne({ token: tokens.token }, { status: "discarded" });
+			});
+	}
+
+	async ValidateTokenExpirationDate() {
+		const findAllTokens = await PasswordChangeTokensModel.find({ status: "generated" });
+
+		findAllTokens.forEach( async (tokens) => {
+            
+			if ( new Date() >= tokens.expires_at )
+				await PasswordChangeTokensModel.updateOne({ token: tokens.token }, { status: "discarded" });
 		});
 	}
 }

@@ -40,6 +40,34 @@ class AuthTokenController {
 				created_at: getToken.created_at,
 				updated_at: getToken.updated_at,
 			});
+
+		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
+	}
+
+	async TokenGenerationToPassword(req, res) {
+		const { email } = req.body;
+
+		await AuthTokenHelper.ValidateTokenExpirationDate();
+
+		const getUser = await ClientHelper.ExistEmail(email);
+
+		if (! getUser)
+			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
+
+		await AuthTokenHelper.ValidateAmountOfTokens(getUser.email);
+
+		const getToken = await new Repository( getUser.email ).GenerateChangePasswordToken();
+
+		if ( getToken )
+			return ResponseHelper.created( res, {
+				info: "token expires in one hour",
+				status: getToken.status,
+				token: getToken.token,
+				created_at: getToken.created_at,
+				updated_at: getToken.updated_at,
+			});
+
+		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
 	}
 }
 

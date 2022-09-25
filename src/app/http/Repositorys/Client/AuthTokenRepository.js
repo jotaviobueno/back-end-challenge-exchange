@@ -1,5 +1,6 @@
 // Models
-import EmailChangeTokensModel from "../../../Model/Client/EmailChangeTokensModel.js";
+import EmailChangeTokensModel from "../../../Model/Client/Tokens/EmailChangeTokensModel.js";
+import PasswordChangeTokensModel from "../../../Model/Client/Tokens/PasswordChangeTokensModel.js";
 
 // Dependencies
 import {nanoid} from "nanoid";
@@ -12,10 +13,26 @@ export default class Repository {
 		this._email = email;
 	}
 
-	async GenerateToken() {
+	async GenerateChangeEmailToken() {
 
 		try {
 			return await EmailChangeTokensModel.create({
+				email: this._email,
+				token: nanoid(),
+				status: "generated",
+				created_at: new Date(),
+				updated_at: new Date(),
+				expires_at: new Date().setHours(new Date().getHours() + 1),
+			});
+
+		} catch(e) {
+			return false;
+		}
+	}
+
+	async GenerateChangePasswordToken() {
+		try {
+			return await PasswordChangeTokensModel.create({
 				email: this._email,
 				token: nanoid(),
 				status: "generated",

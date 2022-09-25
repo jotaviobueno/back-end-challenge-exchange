@@ -14,6 +14,7 @@ import AuthTokenController from "../http/Controllers/Client/AuthTokenController.
 import ClientRequest from "../http/Requests/Client/ClientRequest.js";
 import AuthLoginRequest from "../http/Requests/Client/AuthLoginRequest.js";
 import UpdateRequest from "../http/Requests/Client/UpdateRequest.js";
+import AuthTokenRequest from "../http/Requests/Client/AuthTokenRequest.js";
 
 ClientRoutes.post("/sign-up", ClientRequest.ValidateSignUp, ClientController.SignUp);
 ClientRoutes.post("/sign-in", AuthLoginRequest.ValidateSignIn, AuthLoginController.SignIn);
@@ -21,5 +22,6 @@ ClientRoutes.get("/profile", ClientRequest.ValidateSeeProfile, ClientController.
 ClientRoutes.get("/logout", AuthLoginRequest.ValidateLogout, AuthLoginController.Logout);
 ClientRoutes.patch("/profile/update-name", UpdateRequest.ValidateUpdateName, UpdateController.UpdateName);
 
-ClientRoutes.post("/profile/generation-token/change-email", AuthTokenController.TokenGenerationToChangeEmail);
-
+// Auth
+ClientRoutes.post("/profile/generation-token/change-email", AuthTokenRequest.ValidateEmailTokenGeneration, AuthTokenController.TokenGenerationToChangeEmail);
+ClientRoutes.post("/generation-token/change-password", AuthTokenController.TokenGenerationToPassword);
