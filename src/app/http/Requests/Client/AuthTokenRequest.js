@@ -6,11 +6,11 @@ class AuthTokenRequest {
 	async ValidateEmailTokenGeneration( req, res, next ) {
 
 		const headersValidator = yup.object().shape({
-			session_id: yup.string().email().required(),
+			session_id: yup.string().required(),
 		});
 
 		const bodyValidator = yup.object().shape({
-			passwrod: yup.string().required(),
+			password: yup.string().required(),
 		});
 
 		try {

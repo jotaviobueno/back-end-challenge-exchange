@@ -25,6 +25,19 @@ class AuthLoginHelper {
         
 		return findSession;
 	}
+
+	async DisconnectAllSession(email) {
+		try {
+			const findSession = await LoginModel.findOne({ email: email, disconnected_in: null });
+
+			if ( findSession != null )
+				await LoginModel.updateOne({ session_id: findSession.session_id, disconnected_in: null }, 
+					{ disconnected_in: new Date(), updated_at: new Date() });
+			
+		} catch (e) {
+			console.log(e);
+		}
+	}
 }
 
 export default new AuthLoginHelper;

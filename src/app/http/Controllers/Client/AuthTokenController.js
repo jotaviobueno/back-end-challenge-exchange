@@ -30,7 +30,7 @@ class AuthTokenController {
 
 		await AuthTokenHelper.SeeHowManyTokensTheClientHas(getUser.email);
 		
-		const getToken = await new Repository(getUser.email).GenerateToken();
+		const getToken = await new Repository(getUser.email).GenerateChangeEmailToken();
 	
 		if ( getToken )
 			return ResponseHelper.created( res, {

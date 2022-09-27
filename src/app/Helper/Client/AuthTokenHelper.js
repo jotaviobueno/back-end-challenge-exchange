@@ -45,6 +45,19 @@ class AuthTokenHelper {
 				await PasswordChangeTokensModel.updateOne({ token: tokens.token }, { status: "discarded" });
 		});
 	}
+
+	async ExistToken(token) {
+		const findToken = await PasswordChangeTokensModel.findOne({ token: token, status: "generated" });
+		
+		if (! findToken )
+			return false;
+
+		return findToken;
+	}
+
+	async DeleteChangePasswordToken(Token) {
+		return await PasswordChangeTokensModel.updateOne({ token: Token, status: "generated" }, { status: "used" });
+	}
 }
 
 export default new AuthTokenHelper;

@@ -21,7 +21,8 @@ ClientRoutes.post("/sign-in", AuthLoginRequest.ValidateSignIn, AuthLoginControll
 ClientRoutes.get("/profile", ClientRequest.ValidateSeeProfile, ClientController.Profile);
 ClientRoutes.get("/logout", AuthLoginRequest.ValidateLogout, AuthLoginController.Logout);
 ClientRoutes.patch("/profile/update-name", UpdateRequest.ValidateUpdateName, UpdateController.UpdateName);
+ClientRoutes.patch("/change-password/:change_token", UpdateController.UpdatePassword);
 
 // Auth
 ClientRoutes.post("/profile/generation-token/change-email", AuthTokenRequest.ValidateEmailTokenGeneration, AuthTokenController.TokenGenerationToChangeEmail);
-ClientRoutes.post("/generation-token/change-password", AuthTokenController.TokenGenerationToPassword);
+ClientRoutes.post("/generation-token/change-password", AuthTokenRequest.ValidatePasswordTokenGeneration, AuthTokenController.TokenGenerationToPassword);

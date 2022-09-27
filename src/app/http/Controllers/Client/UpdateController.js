@@ -5,6 +5,7 @@ import Repository from "../../Repositorys/Client/UpdateRepository.js";
 import ClientHelper from "../../../Helper/Client/ClientHelper.js";
 import ResponseHelper from "../../../Helper/ResponseHelper.js";
 import AuthLoginHelper from "../../../Helper/Client/AuthLoginHelper.js";
+import AuthTokenHelper from "../../../Helper/Client/AuthTokenHelper.js";
 
 // Services
 
@@ -36,6 +37,41 @@ class UpdateController {
 				email: getUpdate.email,
 				updated_at: getUpdate.updated_at,
 			});
+
+		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
+	}
+
+	async UpdatePassword(req, res) {
+		const { change_token } = req.params;
+		const { new_password } = req.body;
+
+		const getToken = await AuthTokenHelper.ExistToken(change_token);
+
+		if (! getToken )
+			return ResponseHelper.notAuthorized( res, { error: "invalid token" } );
+
+		const getUser = await ClientHelper.ExistEmail(getToken.email);
+
+		if (! getUser)
+			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
+
+		if ( await AuthLoginHelper.ComparePassword(new_password, getUser.password) )
+			return ResponseHelper.notAuthorized( res, { error: "invalid token" } );
+
+		const getUpdate = await new Repository(getUser.email, null, null, new_password).UpdatePasswordAndCreateLog();
+
+		if ( getUpdate ) {
+			
+			await AuthLoginHelper.DisconnectAllSession(getUser.email);
+
+			await AuthTokenHelper.DeleteChangePasswordToken(change_token);
+
+			return ResponseHelper.success( res, {
+				status: "updated",
+				email: getUpdate.email,
+				updated_at: getUpdate.updated_at,
+			});
+		}
 
 		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
 	}
