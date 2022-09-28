@@ -98,12 +98,14 @@ class UpdateController {
 		if ( new_email === getUser.email )
 			return ResponseHelper.unprocessableEntity( res, { error: "you cannot use the email that is already linked to your account" } );
 
-		const getUpdate = await new Repository(getUser.email, null, null, null, new_email).UpdateEmailAndCreateLog();
+		const getUpdate = await new Repository(getUser.email, "", "", "", new_email ).UpdateEmailAndCreateLog();
 
 		if ( getUpdate ) {
 			await AuthLoginHelper.DisconnectAllSession(getUser.email);
 
 			await AuthTokenHelper.DeleteChangeEmailToken(change_token);
+
+			await new Repository(getUser.email, "", "", "", new_email).UpdateWalletEmail();
 
 			return ResponseHelper.success( res, {
 				status: "update, your session has been disconnected, log in with the new email",

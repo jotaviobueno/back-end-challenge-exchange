@@ -5,7 +5,7 @@ import PasswordChangeTokensModel from "../../../Model/Client/Tokens/PasswordChan
 // Dependencies
 import {nanoid} from "nanoid";
 
-export default class Repository {
+export default class AuthTokenRepository {
 // Private
 	_email;
 

@@ -4,7 +4,7 @@ import LoginModel from "../../../Model/Client/LoginModel.js";
 // Dependencies
 import {nanoid} from "nanoid";
 
-export default class Repository {
+export default class AuthLoginRepository {
 // Private
 	_email;
 	_session_id;

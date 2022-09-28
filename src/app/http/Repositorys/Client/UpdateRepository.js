@@ -1,13 +1,15 @@
 // Models
 import ClientModel from "../../../Model/Client/ClientModel.js";
+import WalletModel from "../../../Model/Finance/WalletModel.js";
 import NameChangeHistoryModel from "../../../Model/Client/Log/NameChangeHistoryModel.js";
 import PasswordChangeHistoryModel from "../../../Model/Client/Log/PasswordChangeHistoryModel.js";
 import EmailChangeHistoryModel from "../../../Model/Client/Log/EmailChangeHistoryModel.js";
+import ChangeWalletEmailHistory from "../../../Model/Finance/Log/ChangeWalletEmailHistory.js";
 
 // Dependencies
 import bcrypt from "bcrypt";
 
-export default class Repository {
+export default class UpdateRepository {
 // Private
 	_email;
 	_new_name;
@@ -80,5 +82,28 @@ export default class Repository {
 			return false;
 		}
 	}
-    
+
+	async UpdateWalletEmail() {
+		try {
+
+			const update = await WalletModel.updateOne({ email: this._email, deleted_at: null }, 
+				{ email: this._new_email, updated_at: new Date() });
+
+			if ( update.modifiedCount === 1 )
+				return await ChangeWalletEmailHistory.create({
+					wallet_id: update.wallet_id,
+					old_email: update.email,
+					new_email: this._new_email,
+					cpf: update.cpf,
+					brl: update.brl,
+					eur: update.eur,
+					usd: update.usd,
+					created_at: new Date(),
+					updated_at: new Date(),
+				});
+
+		} catch(e) {
+			return false;
+		}
+	}
 }

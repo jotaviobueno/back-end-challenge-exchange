@@ -6,7 +6,7 @@ import WalletModel from "../../../Model/Finance/WalletModel.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid"; 
 
-export default class Repository {
+export default class ClientRepository {
 // Private
 	_clientname; 
 	_email;
