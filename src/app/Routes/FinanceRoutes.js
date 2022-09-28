@@ -11,3 +11,4 @@ import FinanceController from "../http/Controllers/Finance/FinanceController.js"
 import FinanceRequest from "../http/Requests/Finance/FinanceRequest.js";
 
 FinanceRoutes.post("/depoist/:coin", FinanceRequest.ValidateDeposit, FinanceController.Deposit );
+FinanceRoutes.get("/wallet", FinanceController.Wallet );
