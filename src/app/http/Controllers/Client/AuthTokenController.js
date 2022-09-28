@@ -26,7 +26,7 @@ class AuthTokenController {
 			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
 
 		if (! await AuthLoginHelper.ComparePassword( password, getUser.password ) )
-			return;
+			return ResponseHelper.notAuthorized( res, { error: "invalid credentials" } );
 
 		await AuthTokenHelper.SeeHowManyTokensTheClientHas(getUser.email);
 		

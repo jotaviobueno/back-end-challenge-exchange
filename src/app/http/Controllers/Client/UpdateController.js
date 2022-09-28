@@ -45,7 +45,7 @@ class UpdateController {
 		const { change_token } = req.params;
 		const { new_password } = req.body;
 
-		const getToken = await AuthTokenHelper.ExistToken(change_token);
+		const getToken = await AuthTokenHelper.PasswordTokenExists(change_token);
 
 		if (! getToken )
 			return ResponseHelper.notAuthorized( res, { error: "invalid token" } );
@@ -69,6 +69,46 @@ class UpdateController {
 			return ResponseHelper.success( res, {
 				status: "updated",
 				email: getUpdate.email,
+				updated_at: getUpdate.updated_at,
+			});
+		}
+
+		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
+	}
+
+	async UpdateEmail(req, res) {
+		const { change_token } = req.params;
+		const { new_email } = req.body;
+
+		const getToken = await AuthTokenHelper.EmailTokenExists( change_token );
+
+		if (! getToken )
+			return ResponseHelper.notAuthorized( res, { error: "invalid token" } );
+
+		const getUser = await ClientHelper.ExistEmail(getToken.email);
+
+		if (! getUser)
+			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
+
+		const getNewUser = await ClientHelper.ExistEmail(new_email);
+
+		if ( getNewUser)
+			return ResponseHelper.unprocessableEntity( res, { error: "already existing email" } );
+
+		if ( new_email === getUser.email )
+			return ResponseHelper.unprocessableEntity( res, { error: "you cannot use the email that is already linked to your account" } );
+
+		const getUpdate = await new Repository(getUser.email, null, null, null, new_email).UpdateEmailAndCreateLog();
+
+		if ( getUpdate ) {
+			await AuthLoginHelper.DisconnectAllSession(getUser.email);
+
+			await AuthTokenHelper.DeleteChangeEmailToken(change_token);
+
+			return ResponseHelper.success( res, {
+				status: "update, your session has been disconnected, log in with the new email",
+				new_email: getUpdate.new_email,
+				old_email: getUpdate.old_email,
 				updated_at: getUpdate.updated_at,
 			});
 		}

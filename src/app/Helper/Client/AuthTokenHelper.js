@@ -46,7 +46,7 @@ class AuthTokenHelper {
 		});
 	}
 
-	async ExistToken(token) {
+	async PasswordTokenExists(token) {
 		const findToken = await PasswordChangeTokensModel.findOne({ token: token, status: "generated" });
 		
 		if (! findToken )
@@ -57,6 +57,19 @@ class AuthTokenHelper {
 
 	async DeleteChangePasswordToken(Token) {
 		return await PasswordChangeTokensModel.updateOne({ token: Token, status: "generated" }, { status: "used" });
+	}
+
+	async EmailTokenExists(token) {
+		const findToken = await EmailChangeTokensModel.findOne({ token: token, status: "generated" });
+
+		if (! findToken )
+			return false;
+
+		return findToken;
+	}
+
+	async DeleteChangeEmailToken(Token) {
+		return await EmailChangeTokensModel.updateOne({ token: Token, status: "generated" }, { status: "used" });
 	}
 }
 

@@ -5,7 +5,7 @@ class UserHelper {
     
 	async ExistEmail(email) {
 		const findEmail = await ClientModel.findOne({ email: email, deleted_at: null });
-	
+
 		if (! findEmail )
 			return false;
 
