@@ -8,7 +8,7 @@ class ClientRequest {
 		const bodyValidator = yup.object().shape({
 			clientname: yup.string().required(),
 			email: yup.string().email().required(),
-			cpf: yup.number().required(),
+			cpf: yup.string().required(),
 			password: yup.string().required(),
 		});
 

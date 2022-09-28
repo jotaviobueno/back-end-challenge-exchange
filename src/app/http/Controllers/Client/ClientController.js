@@ -19,15 +19,19 @@ class ClientController {
 		if ( await ClientHelper.ExistCpf(cpf) )
 			return ResponseHelper.unprocessableEntity( res, { error: "cpf already exists" } );
 
-		const getUser = await new Repository(clientname, email, cpf, password).Storage();
+		const getUser = await new Repository(email, cpf, clientname, password).Storage();
+		
+		if ( getUser) {
+			
+			await new Repository(email, cpf).CreateWallet();
 
-		if ( getUser)
 			return ResponseHelper.created( res, { 
 				status: "created",
 				email: getUser.email,
 				clientname: getUser.clientname,
 				cpf: getUser.cpf
 			});
+		}
 
 		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
 	}
