@@ -10,8 +10,9 @@ import GetHistoryController from "../http/Controllers/Finance/GetHistoryControll
 
 // Request
 import FinanceRequest from "../http/Requests/Finance/FinanceRequest.js";
+import GetHistoryRequest from "../http/Requests/Finance/GetHistoryRequest.js";
 
 FinanceRoutes.post("/depoist/:coin", FinanceRequest.ValidateDeposit, FinanceController.Deposit );
 FinanceRoutes.get("/wallet", FinanceController.Wallet );
-FinanceRoutes.get("/wallet/deposit-history", GetHistoryController.DepositHistory );
-FinanceRoutes.get("/wallet/deposit-history/:deposit_id", GetHistoryController.SeeOneDepositHistory );
+FinanceRoutes.get("/wallet/deposit-history", GetHistoryRequest.DepositHistory, GetHistoryController.DepositHistory );
+FinanceRoutes.get("/wallet/deposit-history/:deposit_id", GetHistoryRequest.SeeOneDepositHistory, GetHistoryController.SeeOneDepositHistory );
