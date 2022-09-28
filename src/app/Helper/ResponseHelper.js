@@ -19,6 +19,10 @@ class ResponseHelper {
 	notAuthorized ( res, content ) {
 		return res.status(401).json( content );
 	}
+
+	forbidden ( res, content ) {
+		return res.status(401).json( content );
+	}
   
 	notFound ( res, content ) {
 		return res.status(404).json( content );
