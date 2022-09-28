@@ -23,6 +23,51 @@ class UpdateRequest {
 
 		await next();
 	}
+
+	async ValidateUpdatePassword ( req, res, next ) {
+
+		const bodyValidator = yup.object().shape({
+			new_password: yup.string().required(),
+		});
+
+		const paramsValidator = yup.object().shape({
+			change_token: yup.string().required(),
+		});
+
+		try {
+			await paramsValidator.validate(req.params);
+			await bodyValidator.validate(req.body);
+
+
+		} catch (err) {
+			return res.status(422).json({errors: err.errors});
+		}
+
+		await next();
+	}
+
+	async ValidateUpdateEmail( req, res, next ) {
+
+		const bodyValidator = yup.object().shape({
+			new_password: yup.string().required(),
+		});
+
+		const paramsValidator = yup.object().shape({
+			new_email: yup.string().required(),
+		});
+
+		try {
+			await paramsValidator.validate(req.params);
+			await bodyValidator.validate(req.body);
+
+
+		} catch (err) {
+			return res.status(422).json({errors: err.errors});
+		}
+
+		await next();
+	}
+	
 }
 
 export default new UpdateRequest;
