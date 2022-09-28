@@ -45,6 +45,8 @@ class UpdateController {
 		const { change_token } = req.params;
 		const { new_password } = req.body;
 
+		await AuthTokenHelper.ValidateTokenExpirationDate();
+
 		const getToken = await AuthTokenHelper.PasswordTokenExists(change_token);
 
 		if (! getToken )
@@ -79,6 +81,8 @@ class UpdateController {
 	async UpdateEmail(req, res) {
 		const { change_token } = req.params;
 		const { new_email } = req.body;
+
+		await AuthTokenHelper.ValidateExpirationDate();
 
 		const getToken = await AuthTokenHelper.EmailTokenExists( change_token );
 

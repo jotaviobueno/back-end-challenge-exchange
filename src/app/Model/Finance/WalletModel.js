@@ -10,6 +10,8 @@ const WalletModel = mongoose.model( "Wallet", {
 	brl: { type: Number, required: true },
 	eur: { type: Number, required: true },
 	usd: { type: Number, required: true },
+	btc: { type: Number, required: true },
+	eth: { type: Number, required: true },
 	created_at: { type: Date, required: true },
 	updated_at: { type: Date, required: true },
 	deleted_at: { type: Date }

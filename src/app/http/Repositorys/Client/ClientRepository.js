@@ -48,6 +48,8 @@ export default class ClientRepository {
 				brl: 0,
 				eur: 0,
 				usd: 0,
+				btc: 0,
+				eth: 0,
 				created_at: new Date(),
 				updated_at: new Date(),
 				deleted_at: null
@@ -57,5 +59,4 @@ export default class ClientRepository {
 			return false;
 		}
 	}
-    
 }

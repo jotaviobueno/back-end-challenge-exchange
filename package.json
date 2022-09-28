@@ -20,6 +20,7 @@
   "homepage": "https://github.com/jotaviobueno/back-end-challenge-exchange#readme",
   "dependencies": {
     "aws-sdk": "^2.1221.0",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "chalk": "^5.0.1",
     "color": "^4.2.3",
