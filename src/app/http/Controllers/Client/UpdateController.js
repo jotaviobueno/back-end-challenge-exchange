@@ -42,7 +42,7 @@ class UpdateController {
 	}
 
 	async UpdatePassword(req, res) {
-		const { change_token } = req.params;
+		const { change_token } = req.query;
 		const { new_password } = req.body;
 
 		await AuthTokenHelper.ValidateTokenExpirationDate();
@@ -79,7 +79,7 @@ class UpdateController {
 	}
 
 	async UpdateEmail(req, res) {
-		const { change_token } = req.params;
+		const { change_token } = req.query;
 		const { new_email } = req.body;
 
 		await AuthTokenHelper.ValidateExpirationDate();

@@ -15,4 +15,4 @@ import GetHistoryRequest from "../http/Requests/Finance/GetHistoryRequest.js";
 FinanceRoutes.post("/depoist/:coin", FinanceRequest.ValidateDeposit, FinanceController.Deposit );
 FinanceRoutes.get("/wallet", FinanceController.Wallet );
 FinanceRoutes.get("/wallet/deposit-history", GetHistoryRequest.DepositHistory, GetHistoryController.DepositHistory );
-FinanceRoutes.get("/wallet/deposit-history/:deposit_id", GetHistoryRequest.SeeOneDepositHistory, GetHistoryController.SeeOneDepositHistory );
+FinanceRoutes.get("/deposit-history", GetHistoryRequest.SeeOneDepositHistory, GetHistoryController.SeeOneDepositHistory );

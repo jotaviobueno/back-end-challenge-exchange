@@ -25,13 +25,13 @@ class GetHistoryRequest {
 			session_id: yup.string().required(),
 		});
 
-		const bodyValidator = yup.object().shape({
+		const queryValidator = yup.object().shape({
 			deposit_id: yup.string().required(),
 		});
 
 		try {
 			await headersValidator.validate(req.headers);
-			await bodyValidator.validate(req.body);
+			await queryValidator.validate(req.query);
 
 		} catch (err) {
 			return res.status(422).json({errors: err.errors});

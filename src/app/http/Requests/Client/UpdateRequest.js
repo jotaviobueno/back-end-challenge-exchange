@@ -30,12 +30,12 @@ class UpdateRequest {
 			new_password: yup.string().required(),
 		});
 
-		const paramsValidator = yup.object().shape({
+		const queryValidator = yup.object().shape({
 			change_token: yup.string().required(),
 		});
 
 		try {
-			await paramsValidator.validate(req.params);
+			await queryValidator.validate(req.query);
 			await bodyValidator.validate(req.body);
 
 
@@ -49,15 +49,15 @@ class UpdateRequest {
 	async ValidateUpdateEmail( req, res, next ) {
 
 		const bodyValidator = yup.object().shape({
-			new_password: yup.string().required(),
-		});
-
-		const paramsValidator = yup.object().shape({
 			new_email: yup.string().required(),
 		});
 
+		const queryValidator = yup.object().shape({
+			change_token: yup.string().required(),
+		});
+
 		try {
-			await paramsValidator.validate(req.params);
+			await queryValidator.validate(req.query);
 			await bodyValidator.validate(req.body);
 
 

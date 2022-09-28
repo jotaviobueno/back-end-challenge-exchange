@@ -37,7 +37,7 @@ class GetHistoryController {
 
 	async SeeOneDepositHistory(req, res) {
 		const { session_id } = req.headers;
-		const { deposit_id } = req.params;
+		const { deposit_id } = req.query;
 
 		const getSession = await AuthLoginHelper.ExistSession(session_id);
 		
