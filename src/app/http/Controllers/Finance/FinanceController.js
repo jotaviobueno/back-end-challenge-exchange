@@ -24,10 +24,10 @@ class FinanceController {
 		if (! getUser)
 			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
 
-		const getWallet = await FinanceHelper.GetWallet(getUser.email);
-
-		if (! FinanceHelper.verifyCoin(coin))
+		if (! FinanceHelper.verifyStableCoin(coin))
 			return ResponseHelper.badRequest( res, { error: "we cannot proceed with the deposit as the currency entered is invalid" } );
+
+		const getWallet = await FinanceHelper.GetWallet(getUser.email);
 
 		if (amount < 5 )
 			return ResponseHelper.badRequest( res, { error: "the deposit amount cannot be less than 5" } );
