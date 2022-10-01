@@ -34,13 +34,12 @@ class FinanceController {
 
 		const sum = FinanceHelper.sum(getWallet, coin, amount);
 
-		const getUpdate = await new Repository(getUser.email, coin, sum, getWallet.wallet_id).AddValueAndCreateLog();
+		const getUpdate = await new Repository(getUser.email, coin, sum, getWallet.wallet_id, amount).AddValueAndCreateLog();
 
 		if ( getUpdate )
 			return ResponseHelper.success( res, {
 				email: getUpdate.email,
 				status: getUpdate.status,
-				value_total: getUpdate.brl,
 				deposited: amount,
 				created_at: getUpdate.created_at,
 				deposit_id: getUpdate._id,

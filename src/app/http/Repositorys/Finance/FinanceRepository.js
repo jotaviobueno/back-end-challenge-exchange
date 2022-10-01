@@ -7,14 +7,16 @@ export default class FinanceRepository {
 	_email;
 	_wallet_id;
 
-	constructor(email, coin, value, wallet_id) {
+	constructor(email, coin, value, wallet_id, depositValue) {
 		this._email = email;
 		this.coin = coin;
 		this.value = value;
 		this._wallet_id = wallet_id;
+		this.depositValue = depositValue;
 	}
 
 	async AddValueAndCreateLog() {
+
 		try {
 			const update = await WalletModel.updateOne({ email: this._email, deleted_at: null }, 
 				{ [this.coin]: this.value, updated_at: new Date() });
@@ -24,7 +26,7 @@ export default class FinanceRepository {
 					wallet_id: this._wallet_id,
 					status: "success",
 					email: this._email,
-					[this.coin]: this.value,
+					[this.coin]: this.depositValue,
 					created_at: new Date(),
 					updated_at: new Date(),
 				});

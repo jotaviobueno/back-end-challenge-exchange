@@ -19,3 +19,4 @@ FinanceRoutes.get("/wallet/deposit-history", GetHistoryRequest.DepositHistory, G
 FinanceRoutes.get("/deposit-history", GetHistoryRequest.SeeOneDepositHistory, GetHistoryController.SeeOneDepositHistory );
 
 FinanceRoutes.post("/buy/:stable_coin/:crypto_coin", CryptoController.BuyCrypto);
+FinanceRoutes.post("/sell/:crypto_coin/:stable_coin", CryptoController.SellCrypto);
