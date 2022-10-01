@@ -1,27 +1,16 @@
 // Dependencies
 import yup from "yup";
 
-class FinanceRequest {
+class GetHistoryCryptoCoinRequest {
 
-	async ValidateDeposit( req, res, next ) {
-
-		const bodyValidator = yup.object().shape({
-			amount: yup.number().required(),
-		});
+	async SeeCryptoCurrencyPurchaseHistory( req, res, next ) {
 
 		const headersValidator = yup.object().shape({
 			session_id: yup.string().required(),
 		});
 
-		const paramsValidator = yup.object().shape({
-			coin: yup.string().required(),
-		});
-
-
 		try {
-			await bodyValidator.validate(req.body);
 			await headersValidator.validate(req.headers);
-			await paramsValidator.validate(req.params);
 
 		} catch (err) {
 			return res.status(422).json({errors: err.errors});
@@ -30,7 +19,7 @@ class FinanceRequest {
 		await next();
 	}
 
-	async ValidateSeeWallet( req, res, next ) {
+	async ViewTheHistoryOfCryptocurrencySales( req, res, next ) {
 
 		const headersValidator = yup.object().shape({
 			session_id: yup.string().required(),
@@ -47,4 +36,4 @@ class FinanceRequest {
 	}
 }
 
-export default new FinanceRequest;
+export default new GetHistoryCryptoCoinRequest;
