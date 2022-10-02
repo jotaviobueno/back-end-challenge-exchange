@@ -9,6 +9,7 @@ import FinanceController from "../http/Controllers/Finance/FinanceController.js"
 import GetHistoryController from "../http/Controllers/Finance/GetHistoryController.js";
 import CryptoController from "../http/Controllers/Finance/CryptoController.js";
 import GetHistoryCryptoCoinRepository from "../http/Controllers/Finance/GetHistoryCryptoCoinController.js";
+import SendMoneyController from "../http/Controllers/Finance/SendController.js";
 
 // Request
 import FinanceRequest from "../http/Requests/Finance/FinanceRequest.js";
@@ -25,3 +26,5 @@ FinanceRoutes.post("/buy/:stable_coin/:crypto_coin", CryptoRequest.ValidateBuyCr
 FinanceRoutes.post("/sell/:crypto_coin/:stable_coin", CryptoRequest.ValidateSellCrypto, CryptoController.SellCrypto);
 FinanceRoutes.get("/buy/history", GetHistoryCryptoCoinRequest.SeeCryptoCurrencyPurchaseHistory, GetHistoryCryptoCoinRepository.SeeCryptoCurrencyPurchaseHistory );
 FinanceRoutes.get("/sell/history", GetHistoryCryptoCoinRequest.ViewTheHistoryOfCryptocurrencySales, GetHistoryCryptoCoinRepository.ViewTheHistoryOfCryptocurrencySales );
+
+FinanceRoutes.post("/send/:stable_coin", SendMoneyController.SendMoney);

@@ -18,6 +18,19 @@ class FinanceHelper {
 		return await WalletModel.findOne({ email: email, deleted_at: null });
 	}
 
+	async ExistWallet(wallet_id) {
+		const findWallet = await WalletModel.findOne({ wallet_id: wallet_id, deleted_at: null });
+
+		if (! findWallet )
+			return false;
+
+		return findWallet;
+	}
+
+	sub(wallet, coin, amount) {
+		return parseFloat(wallet[coin]) - parseFloat(amount);
+	}
+
 	sum (wallet, coin, amount) {
 		return parseFloat(wallet[coin]) + parseFloat(amount);
 	}
