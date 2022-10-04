@@ -62,6 +62,32 @@ class GetHistoryController {
 		
 		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
 	}
+
+	async SeeTransferHistory(req, res) {
+		const {session_id} = req.headers;
+
+		const getSession = await AuthLoginHelper.ExistSession(session_id);
+		
+		if (! getSession )
+			return ResponseHelper.unprocessableEntity( res, { error: "your session is invalid" } );
+
+		const getUser = await ClientHelper.ExistEmail(getSession.email);
+
+		if (! getUser)
+			return ResponseHelper.unprocessableEntity( res, { error: "the email provided is invalid" } );
+
+		const getHistory = await new Repository(getUser.email).getTransferHistory();
+
+		if ( getHistory.length === 0 )
+			return ResponseHelper.success( res, {
+				error: "could not find any purchase history in your account"
+			});
+
+		if ( getHistory.length > 0 )
+			return ResponseHelper.success( res, getHistory);
+
+		return ResponseHelper.badRequest( res, { error: "unable to process your request, please try again" } );
+	}
 }
 
 export default new GetHistoryController;

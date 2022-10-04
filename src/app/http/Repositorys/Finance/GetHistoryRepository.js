@@ -1,5 +1,6 @@
 // Model
 import DepositLogModel from "../../../Model/Finance/Log/DepositLogModel.js";
+import TransferMoneyModel from "../../../Model/Finance/Log/TransferMoneyModel.js";
 
 export default class GetHistoryRepository {
 // Private
@@ -16,6 +17,10 @@ export default class GetHistoryRepository {
 			return findHistory;
 
 		return false;
+	}
+
+	async getTransferHistory() {
+		return await TransferMoneyModel.find({ email: this._email }).select({ __v: 0 });
 	}
 
 }

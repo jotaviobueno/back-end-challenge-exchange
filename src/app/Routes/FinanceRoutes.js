@@ -26,5 +26,5 @@ FinanceRoutes.post("/buy/:stable_coin/:crypto_coin", CryptoRequest.ValidateBuyCr
 FinanceRoutes.post("/sell/:crypto_coin/:stable_coin", CryptoRequest.ValidateSellCrypto, CryptoController.SellCrypto);
 FinanceRoutes.get("/buy/history", GetHistoryCryptoCoinRequest.SeeCryptoCurrencyPurchaseHistory, GetHistoryCryptoCoinRepository.SeeCryptoCurrencyPurchaseHistory );
 FinanceRoutes.get("/sell/history", GetHistoryCryptoCoinRequest.ViewTheHistoryOfCryptocurrencySales, GetHistoryCryptoCoinRepository.ViewTheHistoryOfCryptocurrencySales );
-
+FinanceRoutes.get("/transfer-history", GetHistoryController.SeeTransferHistory );
 FinanceRoutes.post("/send/:stable_coin", SendMoneyController.SendMoney);
